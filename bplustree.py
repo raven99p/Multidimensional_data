@@ -4,10 +4,9 @@ Max_children = 3
 order = 3
 class Node:
 
-	def __init__(self,is_leaf=None):
+	def __init__(self,is_leaf=False):
 		self.keys = []
 		self.pointers = []
-		self.children = []
 		self.parent = None
 		self.is_leaf = is_leaf
 
@@ -27,8 +26,9 @@ class Node:
 					self.pointers.append(pointer)
 					break
 		else:
-			self.keys = key
-			self.pointers = pointer
+			self.keys.append(key)
+			self.pointers.append(pointer)
+		print('inserted key',key,'inserted pointer',pointer)
 
 
 
@@ -42,18 +42,16 @@ class B:
 
 
 	def insert(self,key,pointer):
-		key = str(key)
 		old_node = self.search(key)
 		old_node.insert_at_leaf(old_node,key,pointer)
 
-
-
-
-
+		
 
 
 	def search(self,key):
 		cur_node = self.root
+		print("This is the current node :) ")
+		print(cur_node.keys)
 		while(cur_node.is_leaf == False):
 			temp2 = cur_node.keys
 			for i in range(len(temp2)):
@@ -71,4 +69,13 @@ class B:
 
 
 
+tree = B()
 
+
+
+tree.insert(6,16)
+tree.insert(4,14)
+
+
+
+tree.search(4)
