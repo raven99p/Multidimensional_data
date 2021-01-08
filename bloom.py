@@ -1,6 +1,7 @@
 from bitarray import bitarray 
 import mmh3
 import numpy as np
+import progress.bar as br
 k = 4 
 m = 2415459
 p = 0.1
@@ -35,7 +36,15 @@ class bloom:
 		elif counter == k:
 			return True
 
+print("""
+.______    __        ______     ______   .___  ___.     _______  __   __      .___________. _______ .______      
+|   _  \  |  |      /  __  \   /  __  \  |   \/   |    |   ____||  | |  |     |           ||   ____||   _  \     
+|  |_)  | |  |     |  |  |  | |  |  |  | |  \  /  |    |  |__   |  | |  |     `---|  |----`|  |__   |  |_)  |    
+|   _  <  |  |     |  |  |  | |  |  |  | |  |\/|  |    |   __|  |  | |  |         |  |     |   __|  |      /     
+|  |_)  | |  `----.|  `--'  | |  `--'  | |  |  |  |    |  |     |  | |  `----.    |  |     |  |____ |  |\  \----.
+|______/  |_______| \______/   \______/  |__|  |__|    |__|     |__| |_______|    |__|     |_______|| _| `._____|
 
+			""")
 with open("words.txt") as f:
 	cont = f.read()
 cont = cont.split()
@@ -47,13 +56,15 @@ print(m)
 #(1 - (1 - (1/m))**(k*n))**k
 print(p)
 bloom1 = bloom(m)
+bar = br.Bar('Read Words',max = n)
 for elem in cont:
 	bloom1.add(str(elem))
-print("File read...\n")
-
+	bar.next()
+print("\nFile read...\n")
+print("The number of words stored is: %d \nThe probability of a false positive occurence is: %f\nThe size of the bitarray is: %d positions"%(n,p,m))
 choice = 0
 while choice!=3:
-	choice = int(input("What would you like to do now ? :\n 1) Add another Element \n2) Check if word is in the filter \n3) Exit \n"))
+	choice = int(input("What would you like to do now ? :\n1) Add another Element \n2) Check if word is in the filter \n3) Exit \n"))
 	if choice == 1:
 		word = str(input("Please give me the word you want to store :\n"))
 		bloom1.add(word)
@@ -68,17 +79,8 @@ while choice!=3:
 			print("The word is definetly not contained in the filter \n")
 	if choice == 3:
 		print("Thanks for playing!! \n")
-		print("""
-.______    __        ______     ______   .___  ___.     _______  __   __      .___________. _______ .______      
-|   _  \  |  |      /  __  \   /  __  \  |   \/   |    |   ____||  | |  |     |           ||   ____||   _  \     
-|  |_)  | |  |     |  |  |  | |  |  |  | |  \  /  |    |  |__   |  | |  |     `---|  |----`|  |__   |  |_)  |    
-|   _  <  |  |     |  |  |  | |  |  |  | |  |\/|  |    |   __|  |  | |  |         |  |     |   __|  |      /     
-|  |_)  | |  `----.|  `--'  | |  `--'  | |  |  |  |    |  |     |  | |  `----.    |  |     |  |____ |  |\  \----.
-|______/  |_______| \______/   \______/  |__|  |__|    |__|     |__| |_______|    |__|     |_______|| _| `._____|
-
-			""")
-		pass
-
+	
+	print("=============================================================================")		
 	pass
 
 
