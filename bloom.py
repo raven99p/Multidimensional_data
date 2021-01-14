@@ -64,7 +64,10 @@ print("\nFile read...\n")
 print("The number of words stored is: %d \nThe probability of a false positive occurence is: %f\nThe size of the bitarray is: %d positions"%(n,p,m))
 choice = 0
 while choice!=3:
-	choice = int(input("What would you like to do now ? :\n1) Add another Element \n2) Check if word is in the filter \n3) Exit \n"))
+	try:
+		choice = int(input("What would you like to do now ? :\n1) Add another Element \n2) Check if word is in the filter \n3) Exit \n"))
+	except:
+		continue	
 	if choice == 1:
 		word = str(input("Please give me the word you want to store :\n"))
 		bloom1.add(word)

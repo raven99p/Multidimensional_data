@@ -1,3 +1,5 @@
+import csv
+
 Max_degree = 3
 Max_contents = 2
 Max_children = 3
@@ -50,7 +52,7 @@ class B:
 
 	def search(self,key):
 		cur_node = self.root
-		print("This is the current node :) ")
+		print("This is the current node : ")
 		print(cur_node.keys)
 		while(cur_node.is_leaf == False):
 			temp2 = cur_node.keys
@@ -66,15 +68,35 @@ class B:
 					break
 		return cur_node
 
-
-
-
+keys = []
+pointers = []
+with open('words_csv.csv') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    line_count = 0
+    for row in csv_reader:
+        if line_count == 0:
+            print(f'Column names are {", ".join(row)}')
+            line_count += 1
+        else:
+            keys.append(int(row[0]))
+            pointers.append(row[1])
+            line_count += 1
+    print(f'Processed {line_count} lines.')
+"""
+with open("numbers.txt") as f:
+    cont = f.read()
+cont = cont.split()
+keys = int(cont[0::2])
+pointers = cont[1::2]
+"""
+#creating tree and inserting content of text
 tree = B()
+for i in range(len(keys)):
+    tree.insert(keys[i],pointers[i])
 
 
-
-tree.insert(6,16)
-tree.insert(4,14)
+tree.insert(5,"fish")
+tree.insert(4,"man")
 
 
 
