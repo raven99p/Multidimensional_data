@@ -1,8 +1,8 @@
 from sklearn.datasets import fetch_20newsgroups
-import numpy as np
+import numpy as np # to get unique shhingles of list
+import random # to get permutations of Matrix
 
-
-Doc_ready = 2
+Doc_ready = 3
 shingle_size = 5
 
 
@@ -41,49 +41,40 @@ def unique(list_arg): #get unique elements from List
 
 #Create Universe of Sets
 
-print('Creating Universe')
+#print('Creating Universe')
 U = []
 for i in range(Doc_ready):
+    Doc[i] = unique(Doc[i])
     temp = unique(Doc[i])
     U.extend(temp)
-print("length of U before unique",len(U))
+#print("length of U before unique",len(U))
 U = unique(U)
 print("length of U after unique",len(U))
+
 ###########################################
 
 #Create Matrix 
 
-global M
-M = [[0]*Doc_ready]*len(U) 
-print("Dimensions of M: ",len(M),"x",len(M[0]))
-
-print(type(Doc[0]))
-  
+M = [[0 for x in range(Doc_ready)] for y in range(len(U))] 
+#print("Dimensions of M: ",len(M),"x",len(M[0]))
 
 for i in range(Doc_ready):
     for j in range(len(U)):
         if U[j] in Doc[i]:
-            print("---",U[j],"is in Doc[",i,"]")
-            M[j][i] = 1
-            print("M[",j,"][",i,"]->",M[j][i])
+            #print("---",U[j],"is in Doc[",i,"]")
+            M[j][i] = 1;
+            #print("M[",j,"][",i,"]->",M[j][i])
+            continue
         else:
-            print("---",U[j],"is not in Doc[",i,"]->")
-            M[j][i] = 0
-            print("M[",j,"][",i,"]->",M[j][i])
-            
-
-      
-        
-print(M[0][0])
-print(M[1][0])
-
-
-
-
-
+            #print("---",U[j],"is not in Doc[",i,"]->")
+            M[j][i] = 0;
+            #print("M[",j,"][",i,"]->",M[j][i])
+            continue
+"""
 print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
-    for row in M]))
+    for row in M]))"""
 
+print("Characteristic Matrix create")
 
 
 
