@@ -16,8 +16,7 @@ temp = fetch_20newsgroups(
     subset='train', categories=categories, shuffle=False, random_state=42)
 Doc = []
 
-#temp.data[0]= "pare ton poylo asdasdiaosjdasijbnsfg"
-#temp.data[1]= "pare ton poylo asdas diaoas dasdasd sjdasijbnsfg"
+
 
 for i in range(Doc_ready): # for every document
     File = temp.data[i].replace('\n','')
@@ -59,47 +58,35 @@ U = unique(U)
 #Create Matrix 
 
 M = [[0 for x in range(Doc_ready)] for y in range(len(U))] 
-#print("Dimensions of M: ",len(M),"x",len(M[0]))
+
 
 for i in range(Doc_ready):
     for j in range(len(U)):
         if U[j] in Doc[i]:
-            #print("---",U[j],"is in Doc[",i,"]")
             M[j][i] = 1
-            #print("M[",j,"][",i,"]->",M[j][i])
             continue
         else:
-            #print("---",U[j],"is not in Doc[",i,"]->")
             M[j][i] = 0
-            #print("M[",j,"][",i,"]->",M[j][i])
             continue
 """
 print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
     for row in M]))"""
 
-#print("Characteristic Matrix created")
 
 # Getting actual Jaccard Sim value 
-# Accessing Shingles Correlation Matrix and compairing all values O(n^2)
+# Accessing Shingles Correlation Matrix and compairing all values
 
 # Creating Jac Sim Matrix 
 
 def comp_shingles( a, b, M,) :
     same = 0
     count = 0
-    #print("this is a",a)
-    #print("this is b",b)
     for i in range(len(U)):
-        #print("this is i,a:",M[i][a],"this is i,b:",M[i][b]," i-->",i)
         if M[i][a] + M[i][b] == 1 :   
-            count+=1
-            #print("this is count->",count)   
+            count+=1  
         if M[i][a] + M[i][b] == 2 :
             count+=1
-            #print("this is count->",count)   
             same+=1
-    #print("count:",count,"same:",same)
-    #print(same/count)
     return "%.4f"%(same/(count))
 
 JS = [[0 for x in range(Doc_ready)] for y in range(Doc_ready)]
@@ -203,10 +190,8 @@ def hash(temp_list):
     temp = ""
     for i in temp_list:
         temp+=str(i)
-    #print("this is the string to be hashed",temp)
     h = mmh3.hash(temp) 
     h = h%buckets
-    #print("this is the bucket",h)
     return h
 
 
@@ -214,7 +199,6 @@ def getC( start, col, sig ):
     temp = ""
     for i in range(start, start + r):
         temp+=str(sig[i][col])
-    #print(temp)
     return temp
 
 for j in range(b):
@@ -234,11 +218,6 @@ Sim = [[math.inf for x in range(Doc_ready)] for y in range(Doc_ready)]
 # Read Correlation Matrix and compare documents which are in the same bucket
 
 
-#itertools.combinations(iterable, r)
-#perm = list(combinations([1, 2, 3],2))  
-#print(perm)
-
-
 def comp(a,b):
     same = 0
     for i in range(hash_number):
@@ -252,15 +231,14 @@ for i in range(buckets):
     candidate = []
     for j in range(Doc_ready):
         if k[i][j] == 1 :
-            candidate.append(j) # list of Documents to be compared
-    print(candidate)    
+            candidate.append(j) # list of Documents to be compared   
     if len(candidate) >= 2 : # if there are more than 2 documents then compare, else dont compare, as you can not compare 1 or 0 documents
         comb = list(combinations(candidate,2))
         for c in comb:
             if Sim[c[0]][c[1]] == math.inf:
                 Sim[c[0]][c[1]] = comp(c[0],c[1])
 
-        
+print("\nLSH Similarity Matrix\n")
 print('\n'.join([''.join(['{:10}'.format(item) for item in row]) 
     for row in Sim]))           
              
@@ -290,33 +268,6 @@ print('\n'.join([''.join(['{:10}'.format(item) for item in row])
 
 
 
-"""
-for j in range(b):
-    start=0
-    while start<Doc_ready:
-        
-        curr = getC(r*j,start,Sig)
-        #print("this is the current column",curr)
-        
-        for i in range(start,Doc_ready):
-            #print("compairing current column with:",getC(3*j,i,Sig),"-->",collections.Counter(curr) == collections.Counter(getC(3*j,i,Sig)))
-            if collections.Counter(curr) == collections.Counter(getC(r*j,i,Sig)):
-                k[start][i]=1
-        start=start+1
-
-
-
-        
-  
-for i in range(Doc_ready):
-    for j in range(Doc_ready):
-        if k[i][j] == 1 :
-            k[i][j] = comp(i,j)
-
-print("\n Similarity Matrix \n")         
-print('\n'.join([''.join(['{:8}'.format(item) for item in row]) 
-    for row in k]))
-"""
 
 
 
