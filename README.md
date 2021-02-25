@@ -1,4 +1,9 @@
-# Multidimensional_data
+# Multidimensional_data #
 Bloom Filters vs B plus Trees
 
 LSH vs Cosine Similarity
+
+
+
+
+
