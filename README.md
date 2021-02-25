@@ -5,7 +5,7 @@
 
 ### Required Package ###
 
-* SkLearn ( _ Text Database _ )
+* SkLearn ( _Text Database_ )
 
 
 
