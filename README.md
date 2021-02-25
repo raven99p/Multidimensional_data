@@ -3,7 +3,9 @@
 
 ### LSH vs Cosine Similarity ###
 
+### Required Package ###
 
+* SkLearn
 
 
 
