@@ -1,7 +1,7 @@
 # Multidimensional_data #
-### Bloom Filters vs B plus Trees ###
+* ### Bloom Filters vs B plus Trees ###
 
-### LSH vs Cosine Similarity ###
+* ### LSH vs Cosine Similarity ###
 
 ### Required Package ###
 
