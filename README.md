@@ -5,7 +5,8 @@
     
    
 * ### LSH vs Cosine Similarity ###
-
+    * #### SKLearn ####
+        * Provides texts from a variaty of themes
 
 
 ### Required Package ###
